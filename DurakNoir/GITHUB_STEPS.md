@@ -25,7 +25,20 @@ git push -u origin main
 
 Replace `YOUR-USERNAME` with your own GitHub username.
 
-## 3. Check the repository
+## 3. Send a link to a friend
+
+To play with a friend through a link, upload the project to **Netlify** or **GitHub Pages** first.
+
+Then:
+
+1. Open your hosted website.
+2. Click **Play with Friend**.
+3. Click **Host Room**.
+4. Copy the invite link.
+5. Send it to your friend.
+6. Your friend opens it and clicks **Join Room**.
+
+## 4. Check the repository
 
 After pushing, your repository should contain:
 

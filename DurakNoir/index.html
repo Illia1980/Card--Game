@@ -6,7 +6,7 @@
   <title>Durak Noir — Card Duel</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body data-back-style="nebula">
   <div class="grain"></div>
   <div class="aurora"></div>
 
@@ -23,21 +23,55 @@
           </div>
         </div>
 
-        <button class="soft-btn" data-open-rules>Rules</button>
+        <div class="top-actions">
+          <button id="soundToggleBtn" class="soft-btn small">Sound: On</button>
+          <button class="soft-btn" data-open-rules>Rules</button>
+        </div>
       </nav>
 
       <div class="hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Dark luxury web card game</p>
+          <p class="eyebrow">Cinematic browser card game</p>
           <h1>Durak<br><span>Noir</span></h1>
           <p class="hero-description">
-            A stylish browser version of the classic Durak card game. Attack, defend,
-            use the trump suit, beat the table, or take the cards when the ritual turns against you.
+            A polished browser version of the classic Durak card game with smoother animations,
+            premium visuals, animated dealing, smarter AI, sound effects, win tracking,
+            and selectable card backs.
           </p>
 
           <div class="hero-actions">
-            <button id="startGameBtn" class="gold-btn">Start Game</button>
+            <button id="startGameBtn" class="gold-btn">Play vs Dealer</button>
+            <button id="friendGameBtn" class="soft-btn">Play with Friend</button>
             <button class="soft-btn" data-open-rules>How to Play</button>
+          </div>
+
+          <div class="menu-feature-grid">
+            <div class="feature-card">
+              <span class="feature-kicker">Wins</span>
+              <strong id="menuWins">0</strong>
+              <small>Your total wins</small>
+            </div>
+            <div class="feature-card">
+              <span class="feature-kicker">Losses</span>
+              <strong id="menuLosses">0</strong>
+              <small>The Dealer's wins</small>
+            </div>
+            <div class="feature-card">
+              <span class="feature-kicker">Draws</span>
+              <strong id="menuDraws">0</strong>
+              <small>Equal outcome</small>
+            </div>
+          </div>
+
+          <div class="settings-panel">
+            <div>
+              <p class="panel-label">Card back style</p>
+              <div class="back-style-picker" id="backStylePicker">
+                <button class="back-style-btn active" data-back-style="nebula">Nebula</button>
+                <button class="back-style-btn" data-back-style="royal">Royal</button>
+                <button class="back-style-btn" data-back-style="crystal">Crystal</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -58,6 +92,9 @@
             <span class="big-suit">♦</span>
             <span class="card-name">Ten of Diamonds</span>
           </div>
+          <div class="hero-badge floating-badge-one">Smarter AI</div>
+          <div class="hero-badge floating-badge-two">Smooth Dealing</div>
+          <div class="hero-badge floating-badge-three">3 Back Styles</div>
         </div>
       </div>
     </section>
@@ -73,6 +110,7 @@
         </div>
 
         <div class="top-actions">
+          <button id="gameSoundToggleBtn" class="soft-btn small">Sound: On</button>
           <button class="soft-btn small" data-open-rules>Rules</button>
           <button id="newGameBtn" class="soft-btn small">New Game</button>
           <button id="backMenuBtn" class="soft-btn small">Menu</button>
@@ -95,9 +133,20 @@
           </div>
 
           <div id="enemyHandPreview" class="enemy-hand-preview"></div>
+
+          <div class="info-card compact-info">
+            <p class="panel-label">Match record</p>
+            <div class="scoreline-grid">
+              <div><strong id="playerWins">0</strong><span>You</span></div>
+              <div><strong id="drawCount">0</strong><span>Draws</span></div>
+              <div><strong id="enemyWins">0</strong><span>Dealer</span></div>
+            </div>
+          </div>
         </aside>
 
         <section class="table-panel">
+          <div class="table-sheen"></div>
+
           <div class="table-header">
             <div>
               <p class="panel-label">Battle table</p>
@@ -106,7 +155,7 @@
             </div>
 
             <div class="deck-zone">
-              <div class="deck-stack">
+              <div class="deck-stack" id="deckStack">
                 <div class="deck-card back-card"></div>
                 <div class="deck-card back-card offset-one"></div>
                 <div class="deck-card back-card offset-two"></div>
@@ -146,13 +195,19 @@
             <p class="panel-label">Your hand</p>
             <h2 id="playerRole">Attacker</h2>
           </div>
-          <div id="selectedInfo" class="selected-info">No card selected</div>
+          <div class="player-tools">
+            <button id="cheatBtn" class="soft-btn small cheat-btn">Cheat Peek</button>
+            <div id="selectedInfo" class="selected-info">No card selected</div>
+          </div>
         </div>
 
         <div id="playerHand" class="player-hand"></div>
       </section>
     </section>
   </main>
+
+  <div id="dealLayer" class="deal-layer"></div>
+  <div id="cheatCaughtLayer" class="cheat-caught-layer">Caught cheating</div>
 
   <dialog id="rulesDialog" class="modal-dialog">
     <div class="modal-card">
@@ -184,6 +239,41 @@
     </div>
   </dialog>
 
+
+  <dialog id="onlineDialog" class="modal-dialog">
+    <div class="modal-card online-card">
+      <button id="closeOnlineBtn" class="modal-close">×</button>
+      <p class="eyebrow">Play with a friend</p>
+      <h2>Online Friend Mode</h2>
+      <p class="online-note">
+        Host a room, copy the invite link, and send it to your friend. This works best after you upload the project to Netlify or GitHub Pages.
+      </p>
+
+      <div class="online-grid">
+        <div class="online-box">
+          <strong>Host game</strong>
+          <p>Create a room and wait for your friend to join.</p>
+          <button id="hostGameBtn" class="gold-btn small">Host Room</button>
+        </div>
+
+        <div class="online-box">
+          <strong>Join game</strong>
+          <p>Paste the room code your friend gave you.</p>
+          <input id="joinRoomInput" class="room-input" placeholder="Room code" />
+          <button id="joinGameBtn" class="soft-btn small">Join Room</button>
+        </div>
+      </div>
+
+      <div id="onlineStatus" class="online-status">No room created yet.</div>
+
+      <div id="inviteBox" class="invite-box">
+        <p class="panel-label">Invite link</p>
+        <input id="inviteLinkInput" readonly />
+        <button id="copyInviteBtn" class="soft-btn small">Copy Link</button>
+      </div>
+    </div>
+  </dialog>
+
   <dialog id="resultDialog" class="modal-dialog">
     <div class="modal-card result-card">
       <p class="eyebrow" id="resultKicker">Game Over</p>
@@ -198,6 +288,7 @@
 
   <div id="toast" class="toast">Message</div>
 
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <script src="js/cards.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/game.js"></script>
