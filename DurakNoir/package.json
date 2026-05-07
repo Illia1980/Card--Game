@@ -1,0 +1,18 @@
+{
+  "name": "durak-noir",
+  "version": "1.0.0",
+  "description": "A stylish browser-based Durak card game made with HTML, CSS and JavaScript.",
+  "main": "index.html",
+  "scripts": {
+    "start": "echo Open index.html in your browser from WebStorm"
+  },
+  "keywords": [
+    "durak",
+    "card-game",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "Illia Litvinov",
+  "license": "MIT"
+}

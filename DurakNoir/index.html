@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Durak Noir — Card Duel</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="aurora"></div>
+
+  <main class="app-shell">
+    <section id="menuScreen" class="screen screen-active menu-screen">
+      <div class="menu-glow"></div>
+
+      <nav class="topbar">
+        <div class="brand">
+          <div class="brand-mark">♠</div>
+          <div>
+            <strong>Durak Noir</strong>
+            <span>Classic 36-card duel</span>
+          </div>
+        </div>
+
+        <button class="soft-btn" data-open-rules>Rules</button>
+      </nav>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Dark luxury web card game</p>
+          <h1>Durak<br><span>Noir</span></h1>
+          <p class="hero-description">
+            A stylish browser version of the classic Durak card game. Attack, defend,
+            use the trump suit, beat the table, or take the cards when the ritual turns against you.
+          </p>
+
+          <div class="hero-actions">
+            <button id="startGameBtn" class="gold-btn">Start Game</button>
+            <button class="soft-btn" data-open-rules>How to Play</button>
+          </div>
+        </div>
+
+        <div class="hero-cards" aria-hidden="true">
+          <div class="ritual-circle"></div>
+          <div class="hero-card hero-card-one">
+            <span class="corner">A<br>♠</span>
+            <span class="big-suit">♠</span>
+            <span class="card-name">Ace of Spades</span>
+          </div>
+          <div class="hero-card hero-card-two red-card">
+            <span class="corner">Q<br>♥</span>
+            <span class="big-suit">♥</span>
+            <span class="card-name">Queen of Hearts</span>
+          </div>
+          <div class="hero-card hero-card-three red-card">
+            <span class="corner">10<br>♦</span>
+            <span class="big-suit">♦</span>
+            <span class="card-name">Ten of Diamonds</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen">
+      <nav class="game-topbar">
+        <div class="brand compact">
+          <div class="brand-mark">♠</div>
+          <div>
+            <strong>Durak Noir</strong>
+            <span id="roundInfo">Round 1</span>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <button class="soft-btn small" data-open-rules>Rules</button>
+          <button id="newGameBtn" class="soft-btn small">New Game</button>
+          <button id="backMenuBtn" class="soft-btn small">Menu</button>
+        </div>
+      </nav>
+
+      <section class="game-layout">
+        <aside class="side-panel opponent-panel">
+          <div class="player-header">
+            <div>
+              <p class="panel-label">Opponent</p>
+              <h2>The Dealer</h2>
+            </div>
+            <div class="role-pill" id="opponentRole">Defender</div>
+          </div>
+
+          <div class="hand-counter">
+            <span id="enemyCount">6</span>
+            <small>cards left</small>
+          </div>
+
+          <div id="enemyHandPreview" class="enemy-hand-preview"></div>
+        </aside>
+
+        <section class="table-panel">
+          <div class="table-header">
+            <div>
+              <p class="panel-label">Battle table</p>
+              <h2 id="statusTitle">Your attack</h2>
+              <p id="statusText">Choose a card from your hand and attack.</p>
+            </div>
+
+            <div class="deck-zone">
+              <div class="deck-stack">
+                <div class="deck-card back-card"></div>
+                <div class="deck-card back-card offset-one"></div>
+                <div class="deck-card back-card offset-two"></div>
+                <span id="deckCount">24</span>
+              </div>
+
+              <div id="trumpCard" class="trump-card"></div>
+            </div>
+          </div>
+
+          <div id="battlefield" class="battlefield"></div>
+
+          <div class="table-actions">
+            <button id="beatBtn" class="gold-btn small">Beat</button>
+            <button id="takeBtn" class="danger-btn small">Take</button>
+            <button id="passBtn" class="soft-btn small">Pass / Done</button>
+          </div>
+        </section>
+
+        <aside class="side-panel info-panel">
+          <div class="info-card">
+            <p class="panel-label">Trump</p>
+            <h3 id="trumpInfo">Loading...</h3>
+            <p>Trump cards beat any non-trump card. Higher trump beats lower trump.</p>
+          </div>
+
+          <div class="info-card">
+            <p class="panel-label">Game log</p>
+            <div id="gameLog" class="game-log"></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="player-area">
+        <div class="player-bar">
+          <div>
+            <p class="panel-label">Your hand</p>
+            <h2 id="playerRole">Attacker</h2>
+          </div>
+          <div id="selectedInfo" class="selected-info">No card selected</div>
+        </div>
+
+        <div id="playerHand" class="player-hand"></div>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="rulesDialog" class="modal-dialog">
+    <div class="modal-card">
+      <button id="closeRulesBtn" class="modal-close">×</button>
+      <p class="eyebrow">How to play</p>
+      <h2>Durak Rules</h2>
+      <div class="rules-grid">
+        <div>
+          <strong>1. Attack</strong>
+          <p>Attacker places a card on the table. Extra attack cards must match a rank already on the table.</p>
+        </div>
+        <div>
+          <strong>2. Defend</strong>
+          <p>Defender must beat the attack card with a higher card of the same suit or with a trump card.</p>
+        </div>
+        <div>
+          <strong>3. Trump</strong>
+          <p>The trump suit is shown near the deck. Any trump beats any non-trump card.</p>
+        </div>
+        <div>
+          <strong>4. Beat or Take</strong>
+          <p>If all attacks are defended, press Beat. If you cannot defend, press Take and collect the table.</p>
+        </div>
+        <div>
+          <strong>5. Goal</strong>
+          <p>Get rid of all your cards after the deck is empty. The player left with cards is the Durak.</p>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="resultDialog" class="modal-dialog">
+    <div class="modal-card result-card">
+      <p class="eyebrow" id="resultKicker">Game Over</p>
+      <h2 id="resultTitle">Victory</h2>
+      <p id="resultText">You escaped the table.</p>
+      <div class="result-actions">
+        <button id="playAgainBtn" class="gold-btn">Play Again</button>
+        <button id="resultMenuBtn" class="soft-btn">Main Menu</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast">Message</div>
+
+  <script src="js/cards.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
