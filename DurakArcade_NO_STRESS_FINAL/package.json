@@ -1,0 +1,13 @@
+{
+  "name": "durak-arcade-online",
+  "version": "2.0.0",
+  "description": "Stylish online multiplayer arcade with Durak, Chess and Checkers, playable with friends or bots.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check public/js/app.js"
+  },
+  "keywords": ["durak", "chess", "checkers", "multiplayer", "node"],
+  "author": "Illia Litvinov",
+  "license": "MIT"
+}

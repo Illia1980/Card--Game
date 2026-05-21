@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Durak Arcade Online</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
+
+  <main class="app">
+    <section id="lobby" class="screen active">
+      <nav class="topbar">
+        <div class="brand">
+          <div class="brand-icon">♠</div>
+          <div>
+            <strong>Durak Arcade</strong>
+            <span>Durak • Chess • Checkers</span>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button id="rulesBtn" class="soft-btn">Rules</button>
+          <button id="soundBtn" class="soft-btn">Sound: On</button>
+        </div>
+      </nav>
+
+      <div id="serverWarning" class="server-warning hidden">
+        <strong>Server is not running.</strong>
+        <span>Open WebStorm Terminal and run <b>npm start</b>, then open <b>http://localhost:3000</b>. Do not open index.html directly.</span>
+      </div>
+
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Online multiplayer arcade</p>
+          <h1>Play cards,<br><span>chess & checkers</span></h1>
+          <p class="hero-text">
+            Create a room, copy the invite link, and play with a friend. You can also play all games alone against a bot.
+          </p>
+
+          <div class="name-box">
+            <label>Your name</label>
+            <input id="playerName" maxlength="20" placeholder="Player" />
+          </div>
+
+          <div class="join-box">
+            <input id="joinCodeInput" maxlength="5" placeholder="Room code" />
+            <button id="joinRoomBtn" class="primary-btn">Join Room</button>
+          </div>
+        </div>
+
+        <div class="hero-cards">
+          <div class="ring"></div>
+          <div class="hero-card card-a"><span>A♠</span><b>Durak</b></div>
+          <div class="hero-card card-b red"><span>♔</span><b>Chess</b></div>
+          <div class="hero-card card-c"><span>⛂</span><b>Checkers</b></div>
+        </div>
+      </div>
+
+      <section class="game-menu">
+        <article class="game-choice">
+          <div class="choice-icon">♠</div>
+          <h2>Durak Online</h2>
+          <p>Classic 36-card Durak with trump, attacks, defense, taking cards, and Cheat Peek.</p>
+          <div class="choice-actions">
+            <button class="primary-btn" data-create="durak" data-mode="bot">Play vs Bot</button>
+            <button class="soft-btn" data-create="durak" data-mode="online">Play with Friend</button>
+          </div>
+        </article>
+
+        <article class="game-choice">
+          <div class="choice-icon">♔</div>
+          <h2>Chess Online</h2>
+          <p>Playable online chess board with legal movement, promotion, king capture win, and bot mode.</p>
+          <div class="choice-actions">
+            <button class="primary-btn" data-create="chess" data-mode="bot">Play vs Bot</button>
+            <button class="soft-btn" data-create="chess" data-mode="online">Play with Friend</button>
+          </div>
+        </article>
+
+        <article class="game-choice">
+          <div class="choice-icon">⛂</div>
+          <h2>Checkers Online</h2>
+          <p>Clean checkers with captures, kings, online rooms, and an easy bot opponent.</p>
+          <div class="choice-actions">
+            <button class="primary-btn" data-create="checkers" data-mode="bot">Play vs Bot</button>
+            <button class="soft-btn" data-create="checkers" data-mode="online">Play with Friend</button>
+          </div>
+        </article>
+      </section>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen">
+      <nav class="game-topbar">
+        <div class="brand">
+          <div class="brand-icon" id="gameIcon">♠</div>
+          <div>
+            <strong id="gameTitle">Game</strong>
+            <span id="roomSubtitle">Room</span>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button id="copyLinkBtn" class="soft-btn">Copy Invite</button>
+          <button id="leaveBtn" class="soft-btn">Menu</button>
+        </div>
+      </nav>
+
+      <div id="inviteBox" class="invite-box hidden">
+        <div>
+          <strong>Invite link ready</strong>
+          <span id="inviteLinkText"></span>
+        </div>
+        <button id="copyLinkBtn2" class="primary-btn">Copy Link</button>
+      </div>
+
+      <div id="waitingBox" class="waiting-box hidden">
+        <div class="loader"></div>
+        <div>
+          <strong>Waiting for friend...</strong>
+          <span>Send the invite link or room code.</span>
+        </div>
+      </div>
+
+      <div class="status-panel">
+        <div>
+          <p class="panel-label">Status</p>
+          <h2 id="statusTitle">Loading...</h2>
+          <p id="statusText">Connecting to room.</p>
+        </div>
+        <div id="roomCodeBadge" class="room-code">-----</div>
+      </div>
+
+      <div id="gameMount" class="game-mount"></div>
+    </section>
+  </main>
+
+  <dialog id="rulesDialog" class="modal">
+    <div class="modal-card">
+      <button id="closeRulesBtn" class="modal-close">×</button>
+      <p class="eyebrow">Rules</p>
+      <h2>How this project works</h2>
+      <div class="rules-grid">
+        <div><strong>Durak</strong><p>Attack with cards. Defend with higher same suit or trump. If you cannot defend, take the table. Cheat Peek can reveal enemy cards, but one trap card disables cheating.</p></div>
+        <div><strong>Chess</strong><p>Move pieces by normal movement rules. Pawns promote to queens. Capturing the king wins in this arcade version.</p></div>
+        <div><strong>Checkers</strong><p>Move diagonally, capture enemy pieces, and promote to kings on the last row. Captures are forced when available.</p></div>
+        <div><strong>Online</strong><p>Create a room and share the invite link. For real online play, run this project on a Node.js host such as Render or Railway.</p></div>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="cheatOverlay" class="cheat-overlay hidden"></div>
+  <div id="toast" class="toast"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
