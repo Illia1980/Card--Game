@@ -1,0 +1,18 @@
+{
+  "name": "arcade-duel-clean",
+  "version": "1.0.0",
+  "description": "Polished online arcade with Durak, Chess and Checkers. Play vs bot or with a friend using room links.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check public/js/app.js"
+  },
+  "dependencies": {
+    "chess.js": "^1.0.0",
+    "express": "^4.18.3",
+    "socket.io": "^4.7.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

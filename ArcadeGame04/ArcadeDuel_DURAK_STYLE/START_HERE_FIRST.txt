@@ -1,0 +1,18 @@
+START HERE FIRST
+
+LOCAL PLAY ON YOUR COMPUTER
+1. Double click START_GAME.bat
+2. Wait for the black server window
+3. Browser opens http://localhost:3000
+4. Press Play vs Bot or Create Friend Room
+
+IMPORTANT
+Do not open public/index.html directly.
+Do not use localhost:63342 for multiplayer.
+Use only http://localhost:3000 when testing locally.
+
+TO PLAY WITH FRIENDS ONLINE
+1. Upload this whole folder to GitHub.
+2. Deploy the GitHub repository on Render.
+3. Render gives you a public link.
+4. Open that link, create a friend room, copy invite link, send it to a friend.
