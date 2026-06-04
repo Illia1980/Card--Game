@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Duel — Durak Chess Checkers</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="bg fx-one"></div>
+  <div class="bg fx-two"></div>
+  <div class="noise"></div>
+
+  <main class="app">
+    <section id="lobby" class="screen active">
+      <nav class="topbar">
+        <div class="brand">
+          <div class="logo">♞</div>
+          <div>
+            <strong>Arcade Duel</strong>
+            <span>Durak • Chess • Checkers</span>
+          </div>
+        </div>
+        <div class="server-pill" id="serverStatus">Connecting...</div>
+      </nav>
+
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Online multiplayer + bot mode</p>
+          <h1>Play clean.<br><span>Look expensive.</span></h1>
+          <p class="lead">A rebuilt version focused on reliability, better design, proper chess rules, cleaner controls and rooms that you can share with a friend after deploying online.</p>
+
+          <div class="join-panel">
+            <label for="joinCode">Join friend room</label>
+            <div class="join-row">
+              <input id="joinCode" placeholder="Room code" maxlength="8" />
+              <button id="joinBtn" class="btn secondary">Join</button>
+            </div>
+            <small>Invite links also work automatically.</small>
+          </div>
+        </div>
+
+        <div class="hero-showcase">
+          <div class="floating-card card-a">♠<span>A</span></div>
+          <div class="floating-card card-b red">♥<span>Q</span></div>
+          <div class="floating-card card-c">♚</div>
+          <div class="orbital"></div>
+        </div>
+      </section>
+
+      <section class="games-grid">
+        <article class="game-card" data-game="durak">
+          <div class="game-icon">♠</div>
+          <div>
+            <h2>Durak</h2>
+            <p>Trump suit, attacks, defenses, take and beat actions.</p>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" data-create="durak" data-mode="bot">Play vs Bot</button>
+            <button class="btn secondary" data-create="durak" data-mode="friend">Friend Room</button>
+          </div>
+        </article>
+
+        <article class="game-card" data-game="chess">
+          <div class="game-icon">♞</div>
+          <div>
+            <h2>Chess</h2>
+            <p>Proper legal moves powered by chess.js, with a smarter capture-focused bot.</p>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" data-create="chess" data-mode="bot">Play vs Bot</button>
+            <button class="btn secondary" data-create="chess" data-mode="friend">Friend Room</button>
+          </div>
+        </article>
+
+        <article class="game-card" data-game="checkers">
+          <div class="game-icon">⛀</div>
+          <div>
+            <h2>Checkers</h2>
+            <p>Captures, promotion to kings and simple bot strategy.</p>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" data-create="checkers" data-mode="bot">Play vs Bot</button>
+            <button class="btn secondary" data-create="checkers" data-mode="friend">Friend Room</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="future-panel">
+        <p class="eyebrow">Next expansion area</p>
+        <h2>Arcade Hub</h2>
+        <p class="lead">After the core games feel good, this section can grow into music, card themes, gallery art and extra mini-games.</p>
+        <div class="future-grid">
+          <div><strong>Music room</strong><span>Background music, sound toggle and table ambience.</span></div>
+          <div><strong>Card skins</strong><span>Unlockable backs and different card styles.</span></div>
+          <div><strong>Gallery</strong><span>Posters, screenshots and game progress for your portfolio.</span></div>
+        </div>
+      </section>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen">
+      <nav class="topbar compact">
+        <div class="brand">
+          <div class="logo" id="gameLogo">♞</div>
+          <div>
+            <strong id="gameTitle">Game</strong>
+            <span id="gameSub">Room</span>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button id="copyInviteBtn" class="btn secondary small">Copy invite</button>
+          <button id="leaveBtn" class="btn ghost small">Lobby</button>
+        </div>
+      </nav>
+
+      <div id="inviteBox" class="invite-box hidden">
+        <strong>Friend room created.</strong>
+        <span id="inviteText">Copy the invite link and send it to your friend.</span>
+      </div>
+
+      <section class="play-layout">
+        <aside class="side-panel">
+          <p class="eyebrow small-eyebrow">Status</p>
+          <h2 id="statusTitle">Waiting...</h2>
+          <p id="statusText">Game state will appear here.</p>
+          <div class="stat-grid">
+            <div><span>Room</span><strong id="roomCode">---</strong></div>
+            <div><span>You</span><strong id="playerLabel">---</strong></div>
+            <div><span>Players</span><strong id="playerCount">---</strong></div>
+          </div>
+        </aside>
+
+        <section class="main-board-panel">
+          <div id="gameBoard" class="game-board"></div>
+          <div id="gameControls" class="game-controls"></div>
+        </section>
+
+        <aside class="side-panel log-panel">
+          <p class="eyebrow small-eyebrow">Tips</p>
+          <div id="tipsBox" class="tips-box"></div>
+        </aside>
+      </section>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+START HERE FIRST
+
+LOCAL TEST ON YOUR COMPUTER
+1. Open this folder in WebStorm.
+2. Open Terminal.
+3. Run: npm install
+4. Run: npm start
+5. Open browser: http://localhost:3000
+
+EASY WINDOWS START
+1. Double click START_GAME.bat
+2. Wait until the black server window opens.
+3. Open browser: http://localhost:3000
+
+IMPORTANT
+Do not open public/index.html directly.
+Do not use localhost:63342.
+Use only http://localhost:3000 for local testing.
+
+ONLINE WITH FRIENDS
+GitHub only stores the code.
+Render runs the server.
+Use Render public link for real online multiplayer.

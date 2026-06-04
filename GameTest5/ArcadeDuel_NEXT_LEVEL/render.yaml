@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: arcade-duel-clean
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
